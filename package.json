@@ -18,12 +18,15 @@
     "react-chartist": "0.14.4",
     "react-datetime": "3.0.4",
     "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
     "react-jvectormap": "0.0.16",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
+    "react-scroll": "^1.8.4",
     "react-swipeable-views": "0.13.9",
     "react-table": "7.7.0",
-    "react-tagsinput": "3.19.0"
+    "react-tagsinput": "3.19.0",
+    "styled-components": "^5.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
