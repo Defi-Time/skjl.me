@@ -48,7 +48,6 @@ function SidebarWrapper({ className, user, headerLinks, links }) {
   });
   return (
     <div className={className} ref={sidebarWrapper}>
-      {user}
       {headerLinks}
       {links}
     </div>
@@ -177,11 +176,11 @@ function Sidebar(props) {
                 )
               ) : (
                 <span className={collapseItemMini}>
-                  {rtlActive ? prop.rtlMini : prop.mini}
+                  {prop.mini}
                 </span>
               )}
               <ListItemText
-                primary={rtlActive ? prop.rtlName : prop.name}
+                primary={prop.name}
                 secondary={
                   <b
                     className={
@@ -212,7 +211,7 @@ function Sidebar(props) {
         cx({
           [" " + classes[color]]: activeRoute(prop.layout + prop.path),
         });
-      const collapseItemMini =
+      const collapsesItemMini =
         classes.collapseItemMini +
         " " +
         cx({
@@ -437,15 +436,13 @@ function Sidebar(props) {
   var brand = (
     <div className={logoClasses}>
       <a
-        href="https://www.creative-tim.com?ref=mdpr-sidebar"
-        target="_blank"
+        href="javascript:window.location.reload(true)"
         className={logoMini}
       >
         <img src={logo} alt="logo" className={classes.img} />
       </a>
       <a
-        href="https://www.creative-tim.com?ref=mdpr-sidebar"
-        target="_blank"
+        href="#"
         className={logoNormal}
       >
         {logoText}
