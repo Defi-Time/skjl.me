@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ServicesContainer = styled.div`
   height: 800px;

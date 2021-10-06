@@ -1,7 +1,7 @@
 import React from 'react';
-import Icon1 from '../../images/share.svg';
-import Icon2 from '../../images/blockchain.svg';
-import Icon3 from '../../images/payme.svg';
+import Icon1 from "../../assets/img/frontpage/share.svg";
+import Icon2 from "../../assets/img/frontpage/blockchain.svg";
+import Icon3 from "../../assets/img/frontpage/payme.svg";
 import {
   ServicesContainer,
   ServicesH1,
@@ -10,7 +10,7 @@ import {
   ServicesIcon,
   ServicesH2,
   ServicesP
-} from './ServicesElements';
+} from "./ServicesElements"; 
 
 const Services = () => {
   return (

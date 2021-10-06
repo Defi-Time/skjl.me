@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from '../ButtonElements';
+import React from "react";
+import { Button } from "../ButtonElements";
 import {
   InfoContainer,
   InfoWrapper,
@@ -61,7 +61,7 @@ const InfoSection = ({
             </Column1>
             <Column2>
               <ImgWrap>
-                <Img src={img} alt={alt} />
+                <Img src={'../../assets/img/frontpage/calendar.svg'} alt={alt} />
               </ImgWrap>
             </Column2>
           </InfoRow>

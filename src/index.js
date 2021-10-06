@@ -23,6 +23,7 @@ import RtlLayout from "layouts/RTL.js";
 import AdminLayout from "layouts/Admin.js";
 
 import "assets/scss/material-dashboard-pro-react.scss?v=1.10.0";
+import Frontpage from "frontpage/frontpage";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -30,7 +31,7 @@ ReactDOM.render(
       <Route path="/rtl" component={RtlLayout} />
       <Route path="/auth" component={AuthLayout} />
       <Route path="/admin" component={AdminLayout} />
-      <Redirect from="/" to="/admin/dashboard" />
+      <Route path="/" component={Frontpage} />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
