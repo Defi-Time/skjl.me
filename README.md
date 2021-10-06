@@ -1,6 +1,6 @@
 ## Skjlme Project
 
-SKJLme is a time booking calendar application built on top of [Defi.time](https://github.com/Defi-Time) protocol. The SKJLme project will be present on [Ignition Hackathon](https://solana.com/ignition) by Solana.
+SKJLme is a time booking calendar application built on top of [Defi.time](https://github.com/Defi-Time) protocol on top of [Solana Blockchain](https://solana.com/). The SKJLme project will be present on [Ignition Hackathon](https://solana.com/ignition) by Solana.
 
 Please visit us on [project twitter](https://twitter.com/skjlme).
 
