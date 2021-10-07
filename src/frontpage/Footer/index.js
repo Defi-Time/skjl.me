@@ -35,19 +35,11 @@ const Footer = () => {
             <FooterLinkItems>
               <FooterLinkTitle>About Us</FooterLinkTitle>
               <FooterLink to="/sign-up">How it works</FooterLink>
-              <FooterLink to="/">Investors</FooterLink>
               <FooterLink to="/">Terms of Service</FooterLink>
             </FooterLinkItems>
             <FooterLinkItems>
               <FooterLinkTitle>Contact Us</FooterLinkTitle>
               <FooterLink to="/">Contact</FooterLink>
-            </FooterLinkItems>
-          </FooterLinksWrapper>
-          <FooterLinksWrapper>
-            <FooterLinkItems>
-              <FooterLinkTitle>Social Media</FooterLinkTitle>
-              <FooterLink to="/">Youtube</FooterLink>
-              <FooterLink to="https://twitter.com/skjlme">Twitter</FooterLink>
             </FooterLinkItems>
           </FooterLinksWrapper>
         </FooterLinksContainer>
@@ -58,12 +50,6 @@ const Footer = () => {
             </SocialLogo>
             <WebsiteRights>SKJLme © 2021 All rights reserved.</WebsiteRights>
             <SocialIcons>
-              <SocialIconLink href="/" target="_blank" aria-label="Facebook">
-                <FaFacebook />
-              </SocialIconLink>
-              <SocialIconLink href="/" target="_blank" aria-label="Instagram">
-                <FaInstagram />
-              </SocialIconLink>
               <SocialIconLink
                 href=""
                 target="_blank"
@@ -78,9 +64,6 @@ const Footer = () => {
                 href="https://twitter.com/skjlme"
               >
                 <FaTwitter />
-              </SocialIconLink>
-              <SocialIconLink href="/" target="_blank" aria-label="Linkedin">
-                <FaLinkedin />
               </SocialIconLink>
             </SocialIcons>
           </SocialMediaWrap>
