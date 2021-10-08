@@ -2,7 +2,6 @@ import React from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // react plugin for creating vector maps
-import { VectorMap } from "react-jvectormap";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -55,20 +54,6 @@ const au_flag = require("assets/img/flags/AU.png").default;
 const gb_flag = require("assets/img/flags/GB.png").default;
 const ro_flag = require("assets/img/flags/RO.png").default;
 const br_flag = require("assets/img/flags/BR.png").default;
-
-var mapData = {
-  AU: 760,
-  BR: 550,
-  CA: 120,
-  DE: 1300,
-  FR: 540,
-  GB: 690,
-  GE: 200,
-  IN: 200,
-  RO: 600,
-  RU: 300,
-  US: 2920,
-};
 
 const useStyles = makeStyles(styles);
 

@@ -1,7 +1,8 @@
-import Buttons from "views/Components/Buttons.js";
-import Calendar from "views/Calendar/Calendar.js";
-import Charts from "views/Charts/Charts.js";
 import Dashboard from "views/Dashboard/Dashboard.js";
+import Calendar from "views/Calendar/Calendar.js";
+/*
+import Buttons from "views/Components/Buttons.js";
+import Charts from "views/Charts/Charts.js";
 import ErrorPage from "views/Pages/ErrorPage.js";
 import ExtendedForms from "views/Forms/ExtendedForms.js";
 import ExtendedTables from "views/Tables/ExtendedTables.js";
@@ -26,17 +27,20 @@ import ValidationForms from "views/Forms/ValidationForms.js";
 import VectorMap from "views/Maps/VectorMap.js";
 import Widgets from "views/Widgets/Widgets.js";
 import Wizard from "views/Forms/Wizard.js";
+*/
 
 // @material-ui/icons
-import Apps from "@material-ui/icons/Apps";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import DateRange from "@material-ui/icons/DateRange";
+
+/*
+import Apps from "@material-ui/icons/Apps";
 import GridOn from "@material-ui/icons/GridOn";
 import Image from "@material-ui/icons/Image";
 import Place from "@material-ui/icons/Place";
 import Timeline from "@material-ui/icons/Timeline";
 import WidgetsIcon from "@material-ui/icons/Widgets";
-
+*/
 var dashRoutes = [
   {
     path: "/dashboard",

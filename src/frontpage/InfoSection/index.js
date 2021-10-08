@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Button } from "../ButtonElements";
 import {
   InfoContainer,
@@ -71,4 +72,24 @@ const InfoSection = ({
   );
 };
 
+InfoSection.defaultProps = {
+  id: 1,
+}
+
+InfoSection.propTypes = {
+  id: PropTypes.bool,
+  lightBg: PropTypes.bool,
+  lightText: PropTypes.bool,
+  imgStart: PropTypes.bool,
+  topLine: PropTypes.string,
+  headline: PropTypes.string,
+  description: PropTypes.string,
+  buttonLabel: PropTypes.string,
+  img: PropTypes.string,
+  alt: PropTypes.string,
+  primary: PropTypes.bool,
+  darkText: PropTypes.bool,
+  dark: PropTypes.bool,
+  dark2: PropTypes.bool,
+}
 export default InfoSection;

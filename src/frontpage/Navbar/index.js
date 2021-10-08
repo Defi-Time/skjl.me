@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { FaBars } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { animateScroll as scroll } from "react-scroll";
@@ -103,5 +104,10 @@ const Navbar = ({ toggle }) => {
     </>
   );
 };
+
+Navbar.propTypes = {
+  toggle: PropTypes.bool,
+}
+
 
 export default Navbar;
