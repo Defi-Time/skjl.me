@@ -1,17 +1,9 @@
 import React from "react";
-// react plugin for creating charts
 import ChartistGraph from "react-chartist";
-// react plugin for creating vector maps
-
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Icon from "@material-ui/core/Icon";
-
-// @material-ui/icons
-// import ContentCopy from "@material-ui/icons/ContentCopy";
 import Store from "@material-ui/icons/Store";
-// import InfoOutline from "@material-ui/icons/InfoOutline";
 import Warning from "@material-ui/icons/Warning";
 import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
@@ -19,15 +11,12 @@ import Update from "@material-ui/icons/Update";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
 import Refresh from "@material-ui/icons/Refresh";
+import {InsertLinkTwoTone, LinkOffTwoTone} from "@material-ui/icons";
 import Edit from "@material-ui/icons/Edit";
-import Place from "@material-ui/icons/Place";
-import ArtTrack from "@material-ui/icons/ArtTrack";
-import Language from "@material-ui/icons/Language";
-
-// core components
+import * as web3 from '@solana/web3.js';
+import {useEffect, useState} from "react";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import Table from "components/Table/Table.js";
 import Button from "components/CustomButtons/Button.js";
 import Danger from "components/Typography/Danger.js";
 import Card from "components/Card/Card.js";
@@ -44,23 +33,264 @@ import {
 
 import styles from "assets/jss/material-dashboard-pro-react/views/dashboardStyle.js";
 
-import priceImage1 from "assets/img/card-2.jpeg";
-import priceImage2 from "assets/img/card-3.jpeg";
-import priceImage3 from "assets/img/card-1.jpeg";
-
-const us_flag = require("assets/img/flags/US.png").default;
-const de_flag = require("assets/img/flags/DE.png").default;
-const au_flag = require("assets/img/flags/AU.png").default;
-const gb_flag = require("assets/img/flags/GB.png").default;
-const ro_flag = require("assets/img/flags/RO.png").default;
-const br_flag = require("assets/img/flags/BR.png").default;
+import {AccountBalanceWalletTwoTone} from "@material-ui/icons";
+import Success from "../../components/Typography/Success";
 
 const useStyles = makeStyles(styles);
 
+function WalletCard(props) {
+
+  const {
+    connectionError,
+    phantomInstalled,
+    phantomConnected,
+    disconnectWallet,
+    connectWallet,
+    pubKey,
+  } = props;
+
+  const header = () => {
+    if(!phantomInstalled){
+      return (
+        <>
+          <p className={props.classes.cardCategory}>Phantom not installed.</p>
+          <h3 className={props.classes.cardTitle}>
+            For best experience please install Phantom wallet!
+          </h3>
+        </>
+      )
+    } else if(!phantomConnected){
+      return (
+        <>
+          <p className={props.classes.cardCategory}>Good news, but.. !</p>
+          <h3 className={props.classes.cardTitle}>
+            You have a Solana wallet installed, but it's not yet connected!
+          </h3>
+        </>
+      )
+    } else{
+      return (
+        <>
+          <p className={props.classes.cardCategory}>Good news!</p>
+          <h3 className={props.classes.cardTitle}>
+            You have a Solana wallet installed and connected!
+          </h3>
+        </>
+      )
+    }
+  }
+  const colorCode = () => {
+    if(!phantomInstalled){
+      return 'danger'
+    } else if(!phantomConnected){
+      return 'warning'
+    } else{
+      return 'success'
+    }
+  }
+  const getBody = () => {
+    if(!phantomInstalled){
+      return (
+        <CardBody>
+          <h3>You can <a href="https://phantom.app/" target="_blank" rel="noreferrer">install Phantom extension easily here</a>.</h3>
+          If you wallet is installed and set-up, please click on the refresh button here <Tooltip
+          id="tooltip-top"
+          title="Refresh"
+          placement="bottom"
+          classes={{tooltip: props.classes.tooltip}}
+        >
+          <Button
+            simple color="info"
+            justIcon
+            onClick={props.checkWallet}
+          >
+            <Refresh className={props.classes.underChartIcons}/>
+          </Button>
+        </Tooltip> to continue.
+
+        </CardBody>
+      )
+    } else if(!phantomConnected){
+      return (
+        <CardBody>
+          <h3>Please connect your wallet.</h3>
+          You can connect your wallet by clicking on this button here
+          <Tooltip
+          id="tooltip-top"
+          title="Connect wallet."
+          placement="bottom"
+          classes={{tooltip: props.classes.tooltip}}
+        >
+          <Button
+            simple color="info"
+            justIcon
+            onClick={connectWallet}
+          >
+            <InsertLinkTwoTone className={props.classes.underChartIcons}/>
+          </Button>
+        </Tooltip> or use the Wallet adaptor bellow which supports even more wallet types!
+
+        </CardBody>
+      )
+    } else{
+      return (
+        <CardBody>
+          <h3>You are ready to go!</h3>
+          You can disconnect your wallet by clicking on this button here <Tooltip
+          id="tooltip-top"
+          title="Disconnect wallet."
+          placement="bottom"
+          classes={{tooltip: props.classes.tooltip}}
+        >
+          <Button
+            simple color="info"
+            justIcon
+            onClick={disconnectWallet}
+          >
+            <LinkOffTwoTone className={props.classes.underChartIcons}/>
+          </Button>
+        </Tooltip> or use the Wallet adaptor bellow which supports even more wallet types!
+
+        </CardBody>
+      )
+    }
+  }
+
+  const getFooter = () => {
+    if(!phantomInstalled){
+      return <CardFooter stats>
+        <div className={props.classes.stats}>
+          <Danger>
+            <AccountBalanceWalletTwoTone/>
+          </Danger>
+          <a href="#" >
+            We noticed that you do not have Phantom wallet/extension installed or set-up.
+          </a>
+        </div>
+      </CardFooter>;
+    }
+    if(connectionError){
+      return <CardFooter stats>
+        <div className={props.classes.stats}>
+          <Danger>
+            <AccountBalanceWalletTwoTone/>
+          </Danger>
+          <a href="#" >
+            Error: {connectionError}
+          </a> (we won't be able to make any transactions without your permission. we also recommend to create and connect a wallet with 0 SOL with any DAPP, including SKJL. )
+        </div>
+      </CardFooter>;
+    }
+    if(!phantomConnected){
+      return <CardFooter stats>
+        <div className={props.classes.stats}>
+          <Warning>
+            <AccountBalanceWalletTwoTone/>
+          </Warning>
+            Wallet is not connected.
+        </div>
+      </CardFooter>;
+    }
+
+    return <CardFooter stats>
+      <div className={props.classes.stats}>
+        <Success>
+          <AccountBalanceWalletTwoTone/>
+        </Success>
+        Wallet is connected. <b>Your Pub key: {pubKey}</b>
+      </div>
+    </CardFooter>;
+  }
+
+    return (
+      <Card>
+        <CardHeader stats icon>
+          <CardIcon color={colorCode()}>
+            <AccountBalanceWalletTwoTone/>
+          </CardIcon>
+          {header()}
+        </CardHeader>
+        {getBody()}
+        {getFooter()}
+      </Card>
+    )
+
+}
+
 export default function Dashboard() {
+
+  const [ phantomInstalled, setPhantomInstalled ] = useState(false);
+  const [ phantomConnected, setPhantomConnected ] = useState(false);
+  const [ connectionError, setConnectionError ] = useState();
+  const [ pubKey, setPubKey ] = useState('');
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      checkWallet();
+    }, 333)
+  },[]);
+
+  const checkWallet = async () => {
+    const isPhantomInstalled = window.solana && window.solana.isPhantom
+    setPhantomInstalled(isPhantomInstalled);
+
+    await connectWallet({onlyIfTrusted: true});
+
+    // window.solana.on("connect", () => {
+    //   setPhantomConnected(true)
+    //   console.log("connected!");
+    //   const pub = window.solana.publicKey.toString();
+    //   console.log('pub key:::', pub);
+    //   const con = window.solana.isConnected;
+    //   console.log('connected?:::', con);
+    //   const autoApprove = window.solana.autoApprove;
+    //   console.log('autoApprove?:::', autoApprove);
+    // });
+    window.solana.on('disconnect', () => {
+      console.log("wallet disconnected!");
+      setPhantomConnected(false);
+    })
+  }
+
+  const connectWallet = async (params = {}) => {
+    try {
+      const resp = await window.solana.connect(params);
+      const key = resp.publicKey.toString();
+      setPhantomConnected(true);
+      setConnectionError(null);
+      setPubKey(key);
+    } catch (err) {
+      console.log('>>>> err connecting to phantom:', err);
+      setPhantomConnected(false);
+      if(err.code === 4001){ // { code: 4001, message: 'User rejected the request.' }
+        setConnectionError('You rejected the request, please make sure you confirm connection request. This is just for authentication purposes.');
+      }else{
+        setConnectionError(err.message);
+      }
+    }
+  }
+  const disconnectWallet = async () => {
+    await window.solana.disconnect();
+    setPhantomConnected(false);
+  }
+
   const classes = useStyles();
   return (
     <div>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12} lg={12}>
+          <WalletCard
+            phantomInstalled={phantomInstalled}
+            phantomConnected={phantomConnected}
+            classes={classes}
+            checkWallet={checkWallet}
+            connectWallet={()=>connectWallet()}
+            disconnectWallet={()=>{disconnectWallet()}}
+            connectionError={connectionError}
+            pubKey={pubKey}
+          />
+        </GridItem>
+      </GridContainer>
       <GridContainer>
         <GridItem xs={12} sm={6} md={6} lg={3}>
           <Card>
@@ -76,9 +306,9 @@ export default function Dashboard() {
             <CardFooter stats>
               <div className={classes.stats}>
                 <Danger>
-                  <Warning />
+                  <Warning/>
                 </Danger>
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                <a href="#" onClick={(e) => e.preventDefault()}>
                   Get more space
                 </a>
               </div>
@@ -89,14 +319,14 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="success" stats icon>
               <CardIcon color="success">
-                <Store />
+                <Store/>
               </CardIcon>
               <p className={classes.cardCategory}>Revenue</p>
               <h3 className={classes.cardTitle}>$34,245</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <DateRange />
+                <DateRange/>
                 Last 24 Hours
               </div>
             </CardFooter>
@@ -113,7 +343,7 @@ export default function Dashboard() {
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <LocalOffer />
+                <LocalOffer/>
                 Tracked from Github
               </div>
             </CardFooter>
@@ -123,14 +353,14 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <i className="fab fa-twitter" />
+                <i className="fab fa-twitter"/>
               </CardIcon>
               <p className={classes.cardCategory}>Followers</p>
               <h3 className={classes.cardTitle}>+245</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <Update />
+                <Update/>
                 Just Updated
               </div>
             </CardFooter>
@@ -139,62 +369,6 @@ export default function Dashboard() {
       </GridContainer>
       <GridContainer>
         <GridItem xs={12}>
-          <Card>
-            <CardHeader color="success" icon>
-              <CardIcon color="success">
-                <Language />
-              </CardIcon>
-              <h4 className={classes.cardIconTitle}>
-                Global Sales by Top Locations
-              </h4>
-            </CardHeader>
-            <CardBody>
-              <GridContainer justify="space-between">
-                <GridItem xs={12} sm={12} md={12}>
-                  <Table
-                    tableData={[
-                      [
-                        <img src={us_flag} alt="us_flag" key={"flag"} />,
-                        "USA",
-                        "2.920",
-                        "53.23%",
-                      ],
-                      [
-                        <img src={de_flag} alt="us_flag" key={"flag"} />,
-                        "Germany",
-                        "1.300",
-                        "20.43%",
-                      ],
-                      [
-                        <img src={au_flag} alt="us_flag" key={"flag"} />,
-                        "Australia",
-                        "760",
-                        "10.35%",
-                      ],
-                      [
-                        <img src={gb_flag} alt="us_flag" key={"flag"} />,
-                        "United Kingdom",
-                        "690",
-                        "7.87%",
-                      ],
-                      [
-                        <img src={ro_flag} alt="us_flag" key={"flag"} />,
-                        "Romania",
-                        "600",
-                        "5.94%",
-                      ],
-                      [
-                        <img src={br_flag} alt="us_flag" key={"flag"} />,
-                        "Brasil",
-                        "550",
-                        "4.34%",
-                      ],
-                    ]}
-                  />
-                </GridItem>
-              </GridContainer>
-            </CardBody>
-          </Card>
         </GridItem>
       </GridContainer>
       <GridContainer>
@@ -215,34 +389,34 @@ export default function Dashboard() {
                   id="tooltip-top"
                   title="Refresh"
                   placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
+                  classes={{tooltip: classes.tooltip}}
                 >
                   <Button simple color="info" justIcon>
-                    <Refresh className={classes.underChartIcons} />
+                    <Refresh className={classes.underChartIcons}/>
                   </Button>
                 </Tooltip>
                 <Tooltip
                   id="tooltip-top"
                   title="Change Date"
                   placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
+                  classes={{tooltip: classes.tooltip}}
                 >
                   <Button color="transparent" simple justIcon>
-                    <Edit className={classes.underChartIcons} />
+                    <Edit className={classes.underChartIcons}/>
                   </Button>
                 </Tooltip>
               </div>
               <h4 className={classes.cardTitle}>Daily Sales</h4>
               <p className={classes.cardCategory}>
                 <span className={classes.successText}>
-                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                  <ArrowUpward className={classes.upArrowCardCategory}/> 55%
                 </span>{" "}
                 increase in today sales.
               </p>
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago
+                <AccessTime/> updated 4 minutes ago
               </div>
             </CardFooter>
           </Card>
@@ -265,20 +439,20 @@ export default function Dashboard() {
                   id="tooltip-top"
                   title="Refresh"
                   placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
+                  classes={{tooltip: classes.tooltip}}
                 >
                   <Button simple color="info" justIcon>
-                    <Refresh className={classes.underChartIcons} />
+                    <Refresh className={classes.underChartIcons}/>
                   </Button>
                 </Tooltip>
                 <Tooltip
                   id="tooltip-top"
                   title="Change Date"
                   placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
+                  classes={{tooltip: classes.tooltip}}
                 >
                   <Button color="transparent" simple justIcon>
-                    <Edit className={classes.underChartIcons} />
+                    <Edit className={classes.underChartIcons}/>
                   </Button>
                 </Tooltip>
               </div>
@@ -287,7 +461,7 @@ export default function Dashboard() {
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
+                <AccessTime/> campaign sent 2 days ago
               </div>
             </CardFooter>
           </Card>
@@ -309,20 +483,20 @@ export default function Dashboard() {
                   id="tooltip-top"
                   title="Refresh"
                   placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
+                  classes={{tooltip: classes.tooltip}}
                 >
                   <Button simple color="info" justIcon>
-                    <Refresh className={classes.underChartIcons} />
+                    <Refresh className={classes.underChartIcons}/>
                   </Button>
                 </Tooltip>
                 <Tooltip
                   id="tooltip-top"
                   title="Change Date"
                   placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
+                  classes={{tooltip: classes.tooltip}}
                 >
                   <Button color="transparent" simple justIcon>
-                    <Edit className={classes.underChartIcons} />
+                    <Edit className={classes.underChartIcons}/>
                   </Button>
                 </Tooltip>
               </div>
@@ -331,194 +505,7 @@ export default function Dashboard() {
             </CardBody>
             <CardFooter chart>
               <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-      </GridContainer>
-      <h3>Manage Listings</h3>
-      <br />
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card product className={classes.cardHover}>
-            <CardHeader image className={classes.cardHeaderHover}>
-              <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                <img src={priceImage1} alt="..." />
-              </a>
-            </CardHeader>
-            <CardBody>
-              <div className={classes.cardHoverUnder}>
-                <Tooltip
-                  id="tooltip-top"
-                  title="View"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="transparent" simple justIcon>
-                    <ArtTrack className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-                <Tooltip
-                  id="tooltip-top"
-                  title="Edit"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="success" simple justIcon>
-                    <Refresh className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-                <Tooltip
-                  id="tooltip-top"
-                  title="Remove"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="danger" simple justIcon>
-                    <Edit className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-              </div>
-              <h4 className={classes.cardProductTitle}>
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  Cozy 5 Stars Apartment
-                </a>
-              </h4>
-              <p className={classes.cardProductDesciprion}>
-                The place is close to Barceloneta Beach and bus stop just 2 min
-                by walk and near to {'"'}Naviglio{'"'} where you can enjoy the
-                main night life in Barcelona.
-              </p>
-            </CardBody>
-            <CardFooter product>
-              <div className={classes.price}>
-                <h4>$899/night</h4>
-              </div>
-              <div className={`${classes.stats} ${classes.productStats}`}>
-                <Place /> Barcelona, Spain
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card product className={classes.cardHover}>
-            <CardHeader image className={classes.cardHeaderHover}>
-              <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                <img src={priceImage2} alt="..." />
-              </a>
-            </CardHeader>
-            <CardBody>
-              <div className={classes.cardHoverUnder}>
-                <Tooltip
-                  id="tooltip-top"
-                  title="View"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="transparent" simple justIcon>
-                    <ArtTrack className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-                <Tooltip
-                  id="tooltip-top"
-                  title="Edit"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="success" simple justIcon>
-                    <Refresh className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-                <Tooltip
-                  id="tooltip-top"
-                  title="Remove"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="danger" simple justIcon>
-                    <Edit className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-              </div>
-              <h4 className={classes.cardProductTitle}>
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  Office Studio
-                </a>
-              </h4>
-              <p className={classes.cardProductDesciprion}>
-                The place is close to Metro Station and bus stop just 2 min by
-                walk and near to {'"'}Naviglio{'"'} where you can enjoy the
-                night life in London, UK.
-              </p>
-            </CardBody>
-            <CardFooter product>
-              <div className={classes.price}>
-                <h4>$1.119/night</h4>
-              </div>
-              <div className={`${classes.stats} ${classes.productStats}`}>
-                <Place /> London, UK
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card product className={classes.cardHover}>
-            <CardHeader image className={classes.cardHeaderHover}>
-              <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                <img src={priceImage3} alt="..." />
-              </a>
-            </CardHeader>
-            <CardBody>
-              <div className={classes.cardHoverUnder}>
-                <Tooltip
-                  id="tooltip-top"
-                  title="View"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="transparent" simple justIcon>
-                    <ArtTrack className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-                <Tooltip
-                  id="tooltip-top"
-                  title="Edit"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="success" simple justIcon>
-                    <Refresh className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-                <Tooltip
-                  id="tooltip-top"
-                  title="Remove"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="danger" simple justIcon>
-                    <Edit className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-              </div>
-              <h4 className={classes.cardProductTitle}>
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  Beautiful Castle
-                </a>
-              </h4>
-              <p className={classes.cardProductDesciprion}>
-                The place is close to Metro Station and bus stop just 2 min by
-                walk and near to {'"'}Naviglio{'"'} where you can enjoy the main
-                night life in Milan.
-              </p>
-            </CardBody>
-            <CardFooter product>
-              <div className={classes.price}>
-                <h4>$459/night</h4>
-              </div>
-              <div className={`${classes.stats} ${classes.productStats}`}>
-                <Place /> Milan, Italy
+                <AccessTime/> campaign sent 2 days ago
               </div>
             </CardFooter>
           </Card>
