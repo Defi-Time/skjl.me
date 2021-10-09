@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ChartistGraph from "react-chartist";
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -24,6 +24,28 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
+import '@solana/wallet-adapter-react-ui/styles.css';
+import './Dashboard.css';
+
+import { ConnectionProvider,  WalletProvider } from '@solana/wallet-adapter-react';
+import {useConnection, useWallet} from '@solana/wallet-adapter-react';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import {
+  getLedgerWallet,
+  getPhantomWallet,
+  getSlopeWallet,
+  getSolflareWallet,
+  getSolletExtensionWallet,
+  getSolletWallet,
+  getTorusWallet,
+} from '@solana/wallet-adapter-wallets';
+import {
+  WalletModalProvider,
+  WalletDisconnectButton,
+  WalletMultiButton
+} from '@solana/wallet-adapter-react-ui';
+
+import { clusterApiUrl } from '@solana/web3.js';
 
 import {
   dailySalesChart,
@@ -37,6 +59,53 @@ import {AccountBalanceWalletTwoTone} from "@material-ui/icons";
 import Success from "../../components/Typography/Success";
 
 const useStyles = makeStyles(styles);
+
+
+const WalletAdapterComp = () => {
+
+  const { connection } = useConnection();
+  const { publicKey, wallet, disconnect } = useWallet();
+
+  // Can be set to 'devnet', 'testnet', or 'mainnet-beta'
+  const network = WalletAdapterNetwork.Devnet;
+  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const wallets = useMemo(() => [
+    getPhantomWallet(),
+    getSlopeWallet(),
+    getSolflareWallet(),
+    getTorusWallet({
+      options: { clientId: 'BHIiAHsxMSqcEKnHAZw0Z-Kz6japXZ52w4KwnANs5I_RWZdhG1s_sKEOhgodW4NmCyAuMCw32AIkmZGPPO_QjTA' } // This is just for testing and will be removed, Get a client ID @ https://developer.tor.us and add it in the build pipeline
+    }),
+    getLedgerWallet(),
+    getSolletWallet({ network }),
+    getSolletExtensionWallet({ network }),
+  ], [network]);
+
+  return (
+    <div>
+    <ConnectionProvider
+      endpoint={endpoint}
+    >
+      <WalletProvider
+        wallets={wallets}
+        autoConnect
+        onError={(err) => {
+          console.log('error happened:', err)
+        }}
+      >
+        <WalletModalProvider
+          logo={<b>🗝</b>}
+          // featuredWallets={1}
+        >
+          <WalletMultiButton />
+          <WalletDisconnectButton />
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+    </div>
+  );
+};
+
 
 function WalletCard(props) {
 
@@ -106,7 +175,8 @@ function WalletCard(props) {
           >
             <Refresh className={props.classes.underChartIcons}/>
           </Button>
-        </Tooltip> to continue.
+        </Tooltip> to continue. or use the Wallet adaptor bellow which supports even more wallet types!
+          <WalletAdapterComp />
 
         </CardBody>
       )
@@ -129,6 +199,7 @@ function WalletCard(props) {
             <InsertLinkTwoTone className={props.classes.underChartIcons}/>
           </Button>
         </Tooltip> or use the Wallet adaptor bellow which supports even more wallet types!
+          <WalletAdapterComp />
 
         </CardBody>
       )
@@ -150,6 +221,7 @@ function WalletCard(props) {
             <LinkOffTwoTone className={props.classes.underChartIcons}/>
           </Button>
         </Tooltip> or use the Wallet adaptor bellow which supports even more wallet types!
+          <WalletAdapterComp />
 
         </CardBody>
       )
@@ -246,7 +318,7 @@ export default function Dashboard() {
     //   const autoApprove = window.solana.autoApprove;
     //   console.log('autoApprove?:::', autoApprove);
     // });
-    window.solana.on('disconnect', () => {
+    window.solana?.on('disconnect', () => {
       console.log("wallet disconnected!");
       setPhantomConnected(false);
     })
@@ -254,8 +326,8 @@ export default function Dashboard() {
 
   const connectWallet = async (params = {}) => {
     try {
-      const resp = await window.solana.connect(params);
-      const key = resp.publicKey.toString();
+      const resp = await window.solana?.connect(params);
+      const key = resp?.publicKey.toString();
       setPhantomConnected(true);
       setConnectionError(null);
       setPubKey(key);
