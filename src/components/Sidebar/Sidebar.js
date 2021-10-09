@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import React from "react";
 import PropTypes from "prop-types";
+import { Redirect } from 'react-router-dom'
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 import { NavLink, useLocation } from "react-router-dom";
@@ -21,8 +22,6 @@ import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 
 import sidebarStyle from "assets/jss/material-dashboard-pro-react/components/sidebarStyle.js";
 
-import avatar from "assets/img/faces/avatar.jpg";
-
 const useStyles = makeStyles(sidebarStyle);
 
 var ps;
@@ -31,7 +30,7 @@ var ps;
 // This was necessary so that we could initialize PerfectScrollbar on the links.
 // There might be something with the Hidden component from material-ui, and we didn't have access to
 // the links, and couldn't initialize the plugin.
-function SidebarWrapper({ className, user, headerLinks, links }) {
+function SidebarWrapper({ className, headerLinks, links }) {
   const sidebarWrapper = React.useRef();
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
@@ -48,7 +47,6 @@ function SidebarWrapper({ className, user, headerLinks, links }) {
   });
   return (
     <div className={className} ref={sidebarWrapper}>
-      {user}
       {headerLinks}
       {links}
     </div>
@@ -177,11 +175,11 @@ function Sidebar(props) {
                 )
               ) : (
                 <span className={collapseItemMini}>
-                  {rtlActive ? prop.rtlMini : prop.mini}
+                  {prop.mini}
                 </span>
               )}
               <ListItemText
-                primary={rtlActive ? prop.rtlName : prop.name}
+                primary={prop.name}
                 secondary={
                   <b
                     className={
@@ -212,7 +210,7 @@ function Sidebar(props) {
         cx({
           [" " + classes[color]]: activeRoute(prop.layout + prop.path),
         });
-      const collapseItemMini =
+      const collapsesItemMini =
         classes.collapseItemMini +
         " " +
         cx({
@@ -329,88 +327,7 @@ function Sidebar(props) {
     cx({
       [classes.photoRTL]: rtlActive,
     });
-  var user = (
-    <div className={userWrapperClass}>
-      <div className={photo}>
-        <img src={avatar} className={classes.avatarImg} alt="..." />
-      </div>
-      <List className={classes.list}>
-        <ListItem className={classes.item + " " + classes.userItem}>
-          <NavLink
-            to={"#"}
-            className={classes.itemLink + " " + classes.userCollapseButton}
-            onClick={() => setOpenAvatar(!openAvatar)}
-          >
-            <ListItemText
-              primary={rtlActive ? "تانيا أندرو" : "Tania Andrew"}
-              secondary={
-                <b
-                  className={
-                    caret +
-                    " " +
-                    classes.userCaret +
-                    " " +
-                    (openAvatar ? classes.caretActive : "")
-                  }
-                />
-              }
-              disableTypography={true}
-              className={itemText + " " + classes.userItemText}
-            />
-          </NavLink>
-          <Collapse in={openAvatar} unmountOnExit>
-            <List className={classes.list + " " + classes.collapseList}>
-              <ListItem className={classes.collapseItem}>
-                <NavLink
-                  to="#"
-                  className={classes.itemLink + " " + classes.userCollapseLinks}
-                >
-                  <span className={collapseItemMini}>
-                    {rtlActive ? "مع" : "MP"}
-                  </span>
-                  <ListItemText
-                    primary={rtlActive ? "ملفي" : "My Profile"}
-                    disableTypography={true}
-                    className={collapseItemText}
-                  />
-                </NavLink>
-              </ListItem>
-              <ListItem className={classes.collapseItem}>
-                <NavLink
-                  to="#"
-                  className={classes.itemLink + " " + classes.userCollapseLinks}
-                >
-                  <span className={collapseItemMini}>
-                    {rtlActive ? "هوع" : "EP"}
-                  </span>
-                  <ListItemText
-                    primary={rtlActive ? "تعديل الملف الشخصي" : "Edit Profile"}
-                    disableTypography={true}
-                    className={collapseItemText}
-                  />
-                </NavLink>
-              </ListItem>
-              <ListItem className={classes.collapseItem}>
-                <NavLink
-                  to="#"
-                  className={classes.itemLink + " " + classes.userCollapseLinks}
-                >
-                  <span className={collapseItemMini}>
-                    {rtlActive ? "و" : "S"}
-                  </span>
-                  <ListItemText
-                    primary={rtlActive ? "إعدادات" : "Settings"}
-                    disableTypography={true}
-                    className={collapseItemText}
-                  />
-                </NavLink>
-              </ListItem>
-            </List>
-          </Collapse>
-        </ListItem>
-      </List>
-    </div>
-  );
+
   var links = <List className={classes.list}>{createLinks(routes)}</List>;
 
   const logoNormal =
@@ -437,15 +354,13 @@ function Sidebar(props) {
   var brand = (
     <div className={logoClasses}>
       <a
-        href="https://www.creative-tim.com?ref=mdpr-sidebar"
-        target="_blank"
+        href={<Redirect to='/admin' />}
         className={logoMini}
       >
         <img src={logo} alt="logo" className={classes.img} />
       </a>
       <a
-        href="https://www.creative-tim.com?ref=mdpr-sidebar"
-        target="_blank"
+        href={<Redirect to='/admin' />}
         className={logoNormal}
       >
         {logoText}
@@ -485,7 +400,6 @@ function Sidebar(props) {
           {brand}
           <SidebarWrapper
             className={sidebarWrapper}
-            user={user}
             headerLinks={<AdminNavbarLinks rtlActive={rtlActive} />}
             links={links}
           />
@@ -511,7 +425,6 @@ function Sidebar(props) {
           {brand}
           <SidebarWrapper
             className={sidebarWrapper}
-            user={user}
             links={links}
           />
           {image !== undefined ? (
@@ -553,7 +466,6 @@ Sidebar.propTypes = {
 
 SidebarWrapper.propTypes = {
   className: PropTypes.string,
-  user: PropTypes.object,
   headerLinks: PropTypes.object,
   links: PropTypes.object,
 };

@@ -2,7 +2,6 @@ import React from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // react plugin for creating vector maps
-import { VectorMap } from "react-jvectormap";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -55,20 +54,6 @@ const au_flag = require("assets/img/flags/AU.png").default;
 const gb_flag = require("assets/img/flags/GB.png").default;
 const ro_flag = require("assets/img/flags/RO.png").default;
 const br_flag = require("assets/img/flags/BR.png").default;
-
-var mapData = {
-  AU: 760,
-  BR: 550,
-  CA: 120,
-  DE: 1300,
-  FR: 540,
-  GB: 690,
-  GE: 200,
-  IN: 200,
-  RO: 600,
-  RU: 300,
-  US: 2920,
-};
 
 const useStyles = makeStyles(styles);
 
@@ -165,7 +150,7 @@ export default function Dashboard() {
             </CardHeader>
             <CardBody>
               <GridContainer justify="space-between">
-                <GridItem xs={12} sm={12} md={5}>
+                <GridItem xs={12} sm={12} md={12}>
                   <Table
                     tableData={[
                       [
@@ -205,36 +190,6 @@ export default function Dashboard() {
                         "4.34%",
                       ],
                     ]}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                  <VectorMap
-                    map={"world_mill"}
-                    backgroundColor="transparent"
-                    zoomOnScroll={false}
-                    containerStyle={{
-                      width: "100%",
-                      height: "280px",
-                    }}
-                    containerClassName="map"
-                    regionStyle={{
-                      initial: {
-                        fill: "#e4e4e4",
-                        "fill-opacity": 0.9,
-                        stroke: "none",
-                        "stroke-width": 0,
-                        "stroke-opacity": 0,
-                      },
-                    }}
-                    series={{
-                      regions: [
-                        {
-                          values: mapData,
-                          scale: ["#AAAAAA", "#444444"],
-                          normalizeFunction: "polynomial",
-                        },
-                      ],
-                    }}
                   />
                 </GridItem>
               </GridContainer>

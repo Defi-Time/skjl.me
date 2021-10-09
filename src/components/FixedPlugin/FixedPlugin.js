@@ -14,8 +14,6 @@ import imagine2 from "assets/img/sidebar-2.jpg";
 import imagine3 from "assets/img/sidebar-3.jpg";
 import imagine4 from "assets/img/sidebar-4.jpg";
 
-import Button from "components/CustomButtons/Button.js";
-
 const useStyles = makeStyles(styles);
 
 export default function FixedPlugin(props) {
@@ -261,34 +259,6 @@ export default function FixedPlugin(props) {
             >
               <img src={imagine4} alt="..." />
             </a>
-          </li>
-          <li className="button-container">
-            <div>
-              <Button
-                color="warning"
-                href="https://www.creative-tim.com/product/material-dashboard-pro-react?ref=mdpr-fixed-plugin"
-                target="_blank"
-                fullWidth
-              >
-                Buy now
-              </Button>
-            </div>
-          </li>
-          <li className="button-container">
-            <div>
-              <Button
-                color="info"
-                href="https://demos.creative-tim.com/material-dashboard-pro-react/#/documentation/tutorial?ref=mdpr-fixed-plugin"
-                target="_blank"
-                fullWidth
-              >
-                Documentation
-              </Button>
-            </div>
-          </li>
-          <li className="header-title" id="sharrreTitle">
-            Thank you for sharing!
-            <br />
           </li>
         </ul>
       </div>

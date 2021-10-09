@@ -17,7 +17,6 @@ import Divider from "@material-ui/core/Divider";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
-import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
 
 // core components
@@ -94,29 +93,6 @@ export default function HeaderLinks(props) {
       >
         <Search className={classes.headerLinksSvg + " " + classes.searchIcon} />
       </Button>
-      <Button
-        color="transparent"
-        simple
-        aria-label="Dashboard"
-        justIcon
-        className={rtlActive ? classes.buttonLinkRTL : classes.buttonLink}
-        muiClasses={{
-          label: rtlActive ? classes.labelRTL : "",
-        }}
-      >
-        <Dashboard
-          className={
-            classes.headerLinksSvg +
-            " " +
-            (rtlActive ? classes.links + " " + classes.linksRTL : classes.links)
-          }
-        />
-        <Hidden mdUp implementation="css">
-          <span className={classes.linkText}>
-            {rtlActive ? "لوحة القيادة" : "Dashboard"}
-          </span>
-        </Hidden>
-      </Button>
       <div className={managerClasses}>
         <Button
           color="transparent"
@@ -183,28 +159,8 @@ export default function HeaderLinks(props) {
                       className={dropdownItem}
                     >
                       {rtlActive
-                        ? "شعار إعلان الأرضية قد ذلك"
-                        : "You have 5 new tasks"}
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={dropdownItem}
-                    >
-                      {rtlActive
                         ? "ثمّة الخاصّة و على. مع جيما"
                         : "You're now friend with Andrew"}
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={dropdownItem}
-                    >
-                      {rtlActive ? "قد علاقة" : "Another Notification"}
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={dropdownItem}
-                    >
-                      {rtlActive ? "قد فاتّبع" : "Another One"}
                     </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
