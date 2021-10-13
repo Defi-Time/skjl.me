@@ -1,39 +1,92 @@
-export const homeObjOne = {
+export const about = {
   id: "about",
-  lightBg: false,
-  lightText: true,
-  lightTextDesc: true,
-  topLine: "Premium Calendar",
-  headline: "Slick calender with extraordinary abilities",
-  description: "Track your time with the cool looks, reliable and powerful calender based on Solana Blockchain",
-  buttonLabel: "Get Started",
-  imgStart: false,
-  img: require('../../assets/img/frontpage/calendar.svg').default,
-  alt: "Car",
-  dark: true,
-  primary: true,
-  darkText: false
-};
-
-export const homeObjTwo = {
-  id: "discover",
   lightBg: true,
   lightText: false,
   lightTextDesc: false,
-  topLine: "Unlimited Analytics and more",
-  headline: "Get access to calender analytics",
-  description:
-  "You can optimize the booking rates with available analytics for calender visits.",
+  topLine: "Simple Premium Calendar",
+  headline: "Slick calender with extraordinary abilities",
+  description: "SKJL.me does one thing but does it very well. Track your time with the cool looks, reliable and powerful calender based on Solana Blockchain",
   buttonLabel: "Learn More",
   imgStart: true,
-  img: require("../../assets/img/frontpage/analytics.svg").default,
-  alt: "Piggybank",
+  img: require('../../assets/img/frontpage/calendar.svg').default,
+  alt: "Car",
   dark: false,
   primary: false,
-  darkText: true
+  darkText: true,
 };
 
-export const homeObjThree = {
+export const ananymous = {
+  id: "anonymous",
+  lightBg: false,
+  lightText: true,
+  lightTextDesc: true,
+  topLine: "Completely Ananymous",
+  headline: "No account needed, your wallet is your profile",
+  description:
+  "You don't even need an account to use the system. Your wallet and public key is your profile or identity.",
+  buttonLabel: "Learn More",
+  imgStart: false,
+  img: require("../../assets/img/frontpage/anonymous.svg").default,
+  alt: "Ananymous",
+  dark: true,
+  primary: true,
+  darkText: false
+
+}
+
+export const freeCalendar = {
+  id: "freeCalendar",
+  lightBg: true,
+  lightText: false,
+  lightTextDesc: false,
+  topLine: " Free of Cost",
+  headline: "Use web3 based calendar for free",
+  description: "At least for now, it's free and what is free now will remain free forever",
+  buttonLabel: "Learn More",
+  imgStart: true,
+  img: require('../../assets/img/frontpage/free_calendar.svg').default,
+  alt: "freeCalendar",
+  dark: false,
+  primary: false,
+  darkText: true,
+};
+
+export const integrateable = {
+  id: "integrateable",
+  lightBg: false,
+  lightText: true,
+  lightTextDesc: true,
+  topLine: "Integrateable",
+  headline: "Easy and Flexible integration capabilities",
+  description:
+  "Unlike other services you can use our APIs to integrate skjul to your system the way you want to!",
+  buttonLabel: "Learn More",
+  imgStart: true,
+  img: require("../../assets/img/frontpage/integrateable.svg").default,
+  alt: "Piggybank",
+  dark: true,
+  primary: true,
+  darkText: false,
+};
+
+export const openSource = {
+  id: "opensource",
+  lightBg: true,
+  lightText: false,
+  lightTextDesc: false,
+  topLine: "Opensource",
+  headline: "Transparent and Opensource",
+  description: "Unlike other systems, we don't have a hidden agenda, everything is open and transparent, no iFrames, no restrictions.",
+  buttonLabel: "Learn More",
+  imgStart: true,
+  img: require('../../assets/img/frontpage/opensource.svg').default,
+  alt: "Car",
+  dark: false,
+  primary: false,
+  darkText: true,
+};
+
+export const signup = {
   id: "signup",
   lightBg: true,
   lightText: false,

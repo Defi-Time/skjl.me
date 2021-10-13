@@ -60,14 +60,50 @@ const Navbar = ({ toggle }) => {
               </NavItem>
               <NavItem>
                 <NavLinks
-                  to='discover'
+                  to='anonymous'
                   smooth={true}
                   duration={500}
                   spy={true}
                   exact='true'
                   offset={-80}
                 >
-                  Discover
+                  Anonymous
+                </NavLinks>
+              </NavItem>
+              <NavItem>
+                <NavLinks
+                  to='freeCalendar'
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact='true'
+                  offset={-80}
+                >
+                  Free
+                </NavLinks>
+              </NavItem>
+              <NavItem>
+                <NavLinks
+                  to='integrateable'
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact='true'
+                  offset={-80}
+                >
+                  Integrateable
+                </NavLinks>
+              </NavItem>
+              <NavItem>
+                <NavLinks
+                  to='opensource'
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact='true'
+                  offset={-80}
+                >
+                  Opensource
                 </NavLinks>
               </NavItem>
               <NavItem>

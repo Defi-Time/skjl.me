@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Button } from "../ButtonElements";
+import { Button, ButtonWithRouter } from "../ButtonElements";
 import Solana from "../../assets/img/frontpage/solana.svg";
 
 import Video from "../../assets/videos/video.mp4";
+import { NavBtnLink } from "frontpage/Navbar/NavbarElements";
 import {
   HeroContainer,
   HeroBg,
@@ -30,11 +31,10 @@ function HeroSection() {
         <VideoBg playsInline autoPlay loop muted src={Video} type="video/mp4" />
       </HeroBg>
       <HeroContent>
-        <HeroH1>Tokenize your future calender on blockchain</HeroH1>
+        <HeroH1>Tokenize your future time with Blockchain based calendar</HeroH1>
         <HeroP>
-          Sell your calender time slots for your services instantly No banking 
-          integration needed. Sign up as a beta user and get 3 months free 
-          trial
+          Anonymous, free and expandable calendar with Web3 capabilities.
+          
         </HeroP>
         <HeroBottomTag>
           <div>
@@ -46,8 +46,8 @@ function HeroSection() {
           
         </HeroBottomTag>
         <HeroBtnWrapper>
-          <Button
-            to="signup"
+          <ButtonWithRouter
+            to="/admin/dashboardin"
             smooth={true}
             duration={500}
             spy={true}
@@ -59,7 +59,7 @@ function HeroSection() {
             onMouseLeave={onHover}
           >
             Get Started {hover ? <ArrowForward /> : <ArrowRight />}
-          </Button>
+          </ButtonWithRouter>
         </HeroBtnWrapper>
       </HeroContent>
     </HeroContainer>
