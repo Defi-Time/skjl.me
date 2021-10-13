@@ -21,7 +21,7 @@ const Services = () => {
           <ServicesIcon src={Icon1} />
           <ServicesH2>Calender Share</ServicesH2>
           <ServicesP>
-            Share your calender with clients who want to book your services.
+            Share your calender with friends, family or clients who want to book time slot with you.
           </ServicesP>
         </ServicesCard>
         <ServicesCard>
@@ -35,7 +35,7 @@ const Services = () => {
           <ServicesIcon src={Icon3} />
           <ServicesH2>Payment Integrations</ServicesH2>
           <ServicesP>
-            Get paid instantly in crypto token for your booked time slot or traditional payment services.
+            Use for free with friends and family. Or get paid instantly in crypto token for your booked time slot or traditional payment services.
           </ServicesP>
         </ServicesCard>
       </ServicesWrapper>

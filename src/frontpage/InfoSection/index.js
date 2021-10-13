@@ -24,6 +24,7 @@ const InfoSection = ({
   headline,
   description,
   buttonLabel,
+  buttonLink,
   img,
   alt,
   id,
@@ -45,7 +46,7 @@ const InfoSection = ({
                 <Subtitle darkText={darkText}>{description}</Subtitle>
                 <BtnWrap>
                   <Button
-                    to='home'
+                    to={buttonLink}
                     smooth={true}
                     duration={500}
                     spy={true}
@@ -85,6 +86,7 @@ InfoSection.propTypes = {
   headline: PropTypes.string,
   description: PropTypes.string,
   buttonLabel: PropTypes.string,
+  buttonLink: PropTypes.string,
   img: PropTypes.string,
   alt: PropTypes.string,
   primary: PropTypes.bool,

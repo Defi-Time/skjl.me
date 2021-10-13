@@ -32,7 +32,7 @@ const Sidebar = ({ isOpen, toggle }) => {
             About
           </SidebarLink>
           <SidebarLink
-            to="discover"
+            to="anonymous"
             onClick={toggle}
             smooth={true}
             duration={500}
@@ -40,7 +40,40 @@ const Sidebar = ({ isOpen, toggle }) => {
             exact="true"
             offset={-80}
           >
-            Discover
+            Anonymous
+          </SidebarLink>
+          <SidebarLink
+            to="freeCalendar"
+            onClick={toggle}
+            smooth={true}
+            duration={500}
+            spy={true}
+            exact="true"
+            offset={-80}
+          >
+            Free
+          </SidebarLink>
+          <SidebarLink
+            to="integrateable"
+            onClick={toggle}
+            smooth={true}
+            duration={500}
+            spy={true}
+            exact="true"
+            offset={-80}
+          >
+            Integrateable
+          </SidebarLink>
+          <SidebarLink
+            to="opensource"
+            onClick={toggle}
+            smooth={true}
+            duration={500}
+            spy={true}
+            exact="true"
+            offset={-80}
+          >
+            Opensource
           </SidebarLink>
           <SidebarLink
             to="services"
@@ -66,7 +99,7 @@ const Sidebar = ({ isOpen, toggle }) => {
           </SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
-          <SidebarRoute to="/signin">Sign In</SidebarRoute>
+          <SidebarRoute to="/sign/admin/dashboardin">Sign In</SidebarRoute>
         </SideBtnWrap>
       </SidebarWrapper>
     </SidebarContainer>
