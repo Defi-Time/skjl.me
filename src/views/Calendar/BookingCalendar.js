@@ -1,6 +1,14 @@
 /*eslint-disable*/
 import React from "react";
-// react components used to create a calendar with events on it
+import {
+    BrowserRouter as Router,
+    Link,
+    Route,
+    Routes,
+    useParams
+  } from "react-router-dom";
+
+  // react components used to create a calendar with events on it
 import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 // dependency plugin for react-big-calendar
 import moment from "moment";
@@ -32,6 +40,8 @@ export default function Calendar() {
   const selectedEvent = (event) => {
     window.alert(event.title);
   };
+  const {calId, pubKey} = useParams();
+  console.log(calId + "  : " + pubKey);
   const addNewEventAlert = (slotInfo) => {
     setAlert(
       <SweetAlert
@@ -73,11 +83,6 @@ export default function Calendar() {
       <Heading
         textAlign="center"
         title="Booking Calendar"
-        category={
-          <span>
-            Booking Calendar
-          </span>
-        }
       />
       {alert}
       <GridContainer justify="center">

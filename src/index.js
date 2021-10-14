@@ -30,8 +30,11 @@ ReactDOM.render(
     <Switch>
       <Route path="/auth" component={AuthLayout} />
       <Route path="/admin" component={AdminLayout} />
-      <Route path="/" component={Frontpage} />
+      <Route 
+        path="/test/:pubKey/:calId" 
+        component={BookingCalendar} />
       <Route path="/booking-calendar" component={BookingCalendar} />
+      <Route path="/" component={Frontpage} />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
