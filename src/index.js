@@ -23,6 +23,7 @@ import AdminLayout from "layouts/Admin.js";
 
 import "assets/scss/material-dashboard-pro-react.scss?v=1.10.0";
 import Frontpage from "frontpage/frontpage";
+import BookingCalendar from "views/Calendar/BookingCalendar.js"
 
 ReactDOM.render(
   <BrowserRouter>
@@ -30,6 +31,7 @@ ReactDOM.render(
       <Route path="/auth" component={AuthLayout} />
       <Route path="/admin" component={AdminLayout} />
       <Route path="/" component={Frontpage} />
+      <Route path="/booking-calendar" component={BookingCalendar} />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
