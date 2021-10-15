@@ -1,5 +1,7 @@
 import Dashboard from "views/Dashboard/Dashboard.js";
 import Calendar from "views/Calendar/Calendar.js";
+import BookingCalendar from "views/Calendar/BookingCalendar.js";
+
 /*
 import Buttons from "views/Components/Buttons.js";
 import Charts from "views/Charts/Charts.js";

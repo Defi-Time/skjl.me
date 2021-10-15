@@ -47,16 +47,12 @@ import {
 
 import { clusterApiUrl } from '@solana/web3.js';
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart,
-} from "variables/charts";
 
 import styles from "assets/jss/material-dashboard-pro-react/views/dashboardStyle.js";
 
 import {AccountBalanceWalletTwoTone} from "@material-ui/icons";
 import Success from "../../components/Typography/Success";
+import CopyClipboard from "views/Components/CopyClipboard";
 
 const useStyles = makeStyles(styles);
 
@@ -289,6 +285,8 @@ function WalletCard(props) {
 
 }
 
+
+
 export default function Dashboard() {
 
   const [ phantomInstalled, setPhantomInstalled ] = useState(false);
@@ -364,7 +362,20 @@ export default function Dashboard() {
         </GridItem>
       </GridContainer>
 
-
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12} lg={12}>
+          <Card>
+            <CardHeader>
+            <div className={classes.CardHeader}>
+                <h4 className={classes.cardTitle}>Copy Calendar Link</h4>
+            </div>
+            </CardHeader>
+            <CardBody>
+                  <CopyClipboard copyText="https://skjl.me/booking/test"/>
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
     </div>
   );
 }
