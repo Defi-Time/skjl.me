@@ -27,3 +27,6 @@ commit.sh
 #Intellijerk
 .idea
 *.iml
+
+#ICloud
+.icloud
