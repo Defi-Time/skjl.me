@@ -48,7 +48,7 @@ const Navbar = ({ toggle }) => {
             <NavMenu>
               <NavItem>
                 <NavLinks
-                  to='about'
+                  to='https://github.com/Defi-Time/skjl.me/blob/main/README.md'
                   smooth={true}
                   duration={500}
                   spy={true}
@@ -60,7 +60,7 @@ const Navbar = ({ toggle }) => {
               </NavItem>
               <NavItem>
                 <NavLinks
-                  to='anonymous'
+                  to='/admin/dashboard'
                   smooth={true}
                   duration={500}
                   spy={true}
@@ -72,7 +72,7 @@ const Navbar = ({ toggle }) => {
               </NavItem>
               <NavItem>
                 <NavLinks
-                  to='freeCalendar'
+                  to='/admin/dashboard'
                   smooth={true}
                   duration={500}
                   spy={true}
@@ -84,7 +84,7 @@ const Navbar = ({ toggle }) => {
               </NavItem>
               <NavItem>
                 <NavLinks
-                  to='integrateable'
+                  to='/admin/dashboard'
                   smooth={true}
                   duration={500}
                   spy={true}
@@ -96,7 +96,7 @@ const Navbar = ({ toggle }) => {
               </NavItem>
               <NavItem>
                 <NavLinks
-                  to='opensource'
+                  to='https://github.com/Defi-Time/skjl.me/blob/main/README.md'
                   smooth={true}
                   duration={500}
                   spy={true}
@@ -108,7 +108,7 @@ const Navbar = ({ toggle }) => {
               </NavItem>
               <NavItem>
                 <NavLinks
-                  to='services'
+                  to='/admin/dashboard'
                   smooth={true}
                   duration={500}
                   spy={true}
@@ -120,7 +120,7 @@ const Navbar = ({ toggle }) => {
               </NavItem>
               <NavItem>
                 <NavLinks
-                  to='signup'
+                  to='/admin/dashboard'
                   smooth={true}
                   duration={500}
                   spy={true}
