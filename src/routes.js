@@ -1,4 +1,4 @@
-import Dashboard from "views/Dashboard/Dashboard.js";
+//import Dashboard from "views/Dashboard/Dashboard.js";
 import Calendar from "views/Calendar/Calendar.js";
 import BookingCalendar from "views/Calendar/BookingCalendar.js";
 
@@ -34,6 +34,7 @@ import Wizard from "views/Forms/Wizard.js";
 // @material-ui/icons
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import DateRange from "@material-ui/icons/DateRange";
+import PricingPage from "./views/Pages/PricingPage";
 
 /*
 import Apps from "@material-ui/icons/Apps";
@@ -48,7 +49,7 @@ var dashRoutes = [
     path: "/dashboard",
     name: "Dashboard",
     icon: DashboardIcon,
-    component: Dashboard,
+    component: PricingPage,
     layout: "/admin",
   },
   /*{

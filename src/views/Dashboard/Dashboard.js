@@ -56,7 +56,7 @@ import CopyClipboard from "views/Components/CopyClipboard";
 
 const useStyles = makeStyles(styles);
 
-
+/*
 const WalletAdapterComp = () => {
 
   const { connection } = useConnection();
@@ -101,8 +101,10 @@ const WalletAdapterComp = () => {
     </div>
   );
 };
+*/
 
 
+/*
 function WalletCard(props) {
 
   const {
@@ -284,11 +286,12 @@ function WalletCard(props) {
     )
 
 }
+*/
 
 
 
 export default function Dashboard() {
-
+/*
   const [ phantomInstalled, setPhantomInstalled ] = useState(false);
   const [ phantomConnected, setPhantomConnected ] = useState(false);
   const [ connectionError, setConnectionError ] = useState();
@@ -343,13 +346,14 @@ export default function Dashboard() {
     await window.solana.disconnect();
     setPhantomConnected(false);
   }
-
+ */
+/*
   const classes = useStyles();
   return (
     <div>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12} lg={12}>
-          <WalletCard
+            <WalletCard
             phantomInstalled={phantomInstalled}
             phantomConnected={phantomConnected}
             classes={classes}
@@ -377,5 +381,5 @@ export default function Dashboard() {
         </GridItem>
       </GridContainer>
     </div>
-  );
+  );*/
 }
