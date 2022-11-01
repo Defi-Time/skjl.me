@@ -34,7 +34,7 @@ import Wizard from "views/Forms/Wizard.js";
 // @material-ui/icons
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import DateRange from "@material-ui/icons/DateRange";
-import PricingPage from "./views/Pages/PricingPage";
+import Dashboard from "./views/Dashboard/Dashboard";
 
 /*
 import Apps from "@material-ui/icons/Apps";
@@ -49,7 +49,7 @@ var dashRoutes = [
     path: "/dashboard",
     name: "Dashboard",
     icon: DashboardIcon,
-    component: PricingPage,
+    component: Dashboard,
     layout: "/admin",
   },
   /*{

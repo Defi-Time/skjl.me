@@ -31,13 +31,12 @@ import { ConnectionProvider,  WalletProvider } from '@solana/wallet-adapter-reac
 import {useConnection, useWallet} from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import {
-  getLedgerWallet,
-  getPhantomWallet,
-  getSlopeWallet,
-  getSolflareWallet,
-  getSolletExtensionWallet,
-  getSolletWallet,
-  getTorusWallet,
+    LedgerWalletAdapter,
+    PhantomWalletAdapter,
+    SlopeWalletAdapter,
+    SolflareWalletAdapter,
+    SolletWalletAdapter,
+    TorusWalletAdapter,
 } from '@solana/wallet-adapter-wallets';
 import {
   WalletModalProvider,
@@ -56,7 +55,7 @@ import CopyClipboard from "views/Components/CopyClipboard";
 
 const useStyles = makeStyles(styles);
 
-/*
+
 const WalletAdapterComp = () => {
 
   const { connection } = useConnection();
@@ -66,15 +65,16 @@ const WalletAdapterComp = () => {
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   const wallets = useMemo(() => [
-    getPhantomWallet(),
-    getSlopeWallet(),
-    getSolflareWallet(),
-    getTorusWallet({
+    new PhantomWalletAdapter(),
+    new SlopeWalletAdapter(),
+    new SolflareWalletAdapter(),
+    new SolletWalletAdapter(),
+    new TorusWalletAdapter({
       options: { clientId: 'BHIiAHsxMSqcEKnHAZw0Z-Kz6japXZ52w4KwnANs5I_RWZdhG1s_sKEOhgodW4NmCyAuMCw32AIkmZGPPO_QjTA' } // This is just for testing and will be removed, Get a client ID @ https://developer.tor.us and add it in the build pipeline
     }),
-    getLedgerWallet(),
-    getSolletWallet({ network }),
-    getSolletExtensionWallet({ network }),
+    new LedgerWalletAdapter(),
+    // getSolletWallet({ network }),
+    // getSolletExtensionWallet({ network }),
   ], [network]);
 
   return (
@@ -101,10 +101,10 @@ const WalletAdapterComp = () => {
     </div>
   );
 };
-*/
 
 
-/*
+
+
 function WalletCard(props) {
 
   const {
@@ -286,12 +286,12 @@ function WalletCard(props) {
     )
 
 }
-*/
+
 
 
 
 export default function Dashboard() {
-/*
+
   const [ phantomInstalled, setPhantomInstalled ] = useState(false);
   const [ phantomConnected, setPhantomConnected ] = useState(false);
   const [ connectionError, setConnectionError ] = useState();
@@ -309,16 +309,16 @@ export default function Dashboard() {
 
     await connectWallet({onlyIfTrusted: true});
 
-    // window.solana.on("connect", () => {
-    //   setPhantomConnected(true)
-    //   console.log("connected!");
-    //   const pub = window.solana.publicKey.toString();
-    //   console.log('pub key:::', pub);
-    //   const con = window.solana.isConnected;
-    //   console.log('connected?:::', con);
-    //   const autoApprove = window.solana.autoApprove;
-    //   console.log('autoApprove?:::', autoApprove);
-    // });
+    window.solana.on("connect", () => {
+      setPhantomConnected(true)
+      console.log("connected!");
+      const pub = window.solana.publicKey.toString();
+      console.log('pub key:::', pub);
+      const con = window.solana.isConnected;
+      console.log('connected?:::', con);
+      const autoApprove = window.solana.autoApprove;
+      console.log('autoApprove?:::', autoApprove);
+    });
     window.solana?.on('disconnect', () => {
       console.log("wallet disconnected!");
       setPhantomConnected(false);
@@ -346,8 +346,8 @@ export default function Dashboard() {
     await window.solana.disconnect();
     setPhantomConnected(false);
   }
- */
-/*
+
+
   const classes = useStyles();
   return (
     <div>
@@ -381,5 +381,5 @@ export default function Dashboard() {
         </GridItem>
       </GridContainer>
     </div>
-  );*/
+  );
 }
